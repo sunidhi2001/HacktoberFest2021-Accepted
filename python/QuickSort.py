@@ -1,28 +1,38 @@
-﻿def quickSort(myList, start, end):
+"""
+Quick sort using last element as pivot index.
+
+Initial array: [23, 45, 12, 78, 90, 1]
+-------------- [1, 45, 12, 78, 90, 23]
+-------------- [1, 12, 23, 78, 90, 45]
+-------------- [1, 12, 23, 45, 90, 78]
+-------------- [1, 12, 23, 45, 78, 90]
+Sorted array : [1, 12, 23, 45, 78, 90]
+
+"""
+def find_pviot_index(A,start,end):
+    pivot=A[end]
+    p_index=start
+    for iter in range(start,end):
+        if A[iter] <= pivot:
+            A[p_index],A[iter]=A[iter],A[p_index]
+            p_index+=1
+    A[p_index],A[end]=pivot,A[p_index]
+    return p_index        
+
+def quick_sort(A,start,end):
     if start < end:
-        pivot = partition(myList, start, end)
-        quickSort(myList, start, pivot-1)
-        quickSort(myList, pivot+1, end)
-    return myList
+        pivot_index=find_pviot_index(A,start,end)
+        print("--------------",A)
+        quick_sort(A,start,pivot_index-1)
+        quick_sort(A,pivot_index+1,end)
+        
 
-
-def partition(myList, start, end):
-    pivot = myList[start]
-    left = start+1
-    right = end
-    done = False
-    while not done:
-        while left <= right and myList[left] <= pivot:
-            left = left + 1
-        while myList[right] >= pivot and right >=left:
-            right = right -1
-        if right < left:
-            done= True
-        else:
-            temp=myList[left]
-            myList[left]=myList[right]
-            myList[right]=temp
-    temp=myList[start]
-    myList[start]=myList[right]
-    myList[right]=temp
-    return right
+#main
+A=list()
+n=int(input("Enter how many numbers you want ot enter: "))
+for x in range(0,n):
+    num=int(input("enter num:"))
+    A.append(num)
+print("Initial array:",A)     
+quick_sort(A,0,n-1)
+print("Sorted array :",A)
