@@ -1,20 +1,26 @@
 #include <stdio.h>
+int main() {
+  int n, i, flag = 0;
+  printf("Enter a positive integer: ");
+  scanf("%d", &n);
 
-int main() { 
-   int loop, number;
-   int prime = 1;
+  for (i = 2; i <= n / 2; ++i) {
+    // condition for non-prime
+    if (n % i == 0) {
+      flag = 1;
+      break;
+    }
+  }
 
-   number = 11;
+  if (n == 1) {
+    printf("1 is neither prime nor composite.");
+  } 
+  else {
+    if (flag == 0)
+      printf("%d is a prime number.", n);
+    else
+      printf("%d is not a prime number.", n);
+  }
 
-   for(loop = 2; loop < number; loop++) {
-      if((number % loop) == 0) {
-         prime = 0;
-      }
-   }
-
-   if (prime == 1)
-      printf("%d is a prime number.", number);
-   else
-      printf("%d is not a prime number.", number);
-   return 0;
+  return 0;
 }
